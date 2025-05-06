@@ -13,8 +13,9 @@ class Account {
 public:
     enum class Category { Food = 0, Clothes = 1, Travels = 2, Other = 3 };
     
+    
     Account() : balance(0.0), sumOfAllExpences(0.0), category(Category::Other), monthlyBudget(0.0) {}
-   
+    
     Account(double initialBalance, 
             const std::vector<std::tuple<double, std::string, Category, std::time_t>>& initialExpenses = {}, 
             double initialSumOfExpenses = 0.0) :
@@ -35,6 +36,7 @@ public:
     void DepositMoney();
     void WithdrawMoney();
     void SendMoney(Account& receiver, double amount);
+    void setMonthlyBudget(double value) { monthlyBudget = value; }
 
     static std::string CategoryToString(Category c) {
         switch (c) {
