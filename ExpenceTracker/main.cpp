@@ -12,6 +12,7 @@
 #include <map>
 #include <filesystem>
 
+
 const std::string expensesFilename = "expenses.txt";
 std::map<int, Account> accounts;
 int nextAccountId = 1;
@@ -76,9 +77,7 @@ public:
             } else if (line.rfind("MONTHLY_BUDGET:", 0) == 0) {
                 monthlyBudget = std::stod(line.substr(15));
             } else if (line == "EXPENSES_BEGIN") {
-                // Start reading expenses
-                while (std::getline(inFile, line) && line != "EXPENSES_END") {
-                    // Parse expense line
+                while (std::getline(inFile, line) && line != "EXPENSES_END") { 
                     double amount = 0.0;
                     std::string desc, catStr, dateStr;
                     size_t pos1 = line.find("AMOUNT: ");
@@ -87,10 +86,10 @@ public:
                     size_t pos4 = line.find(" | DATE: ");
                     if (pos1 != std::string::npos && pos2 != std::string::npos && pos3 != std::string::npos && pos4 != std::string::npos) {
                         amount = std::stod(line.substr(pos1 + 8, pos2 - (pos1 + 8)));
-                        desc = line.substr(pos2 + 10, pos3 - (pos2 + 10) - 1); // remove quotes
+                        desc = line.substr(pos2 + 10, pos3 - (pos2 + 10) - 1); 
                         catStr = line.substr(pos3 + 8, pos4 - (pos3 + 8));
                         dateStr = line.substr(pos4 + 8);
-                        // Remove quotes from desc
+                        
                         if (!desc.empty() && desc.front() == '"' && desc.back() == '"')
                             desc = desc.substr(1, desc.size() - 2);
                         Account::Category cat = Account::Category::Other;
@@ -107,7 +106,6 @@ public:
                 }
             } else if (line == "ACCOUNT_END") {
                 Account acc(initialBudget, expenses);
-                // Установим месячный бюджет, если он был
                 if (monthlyBudget > 0.0) {
                     acc.setMonthlyBudget(monthlyBudget);
                 }
@@ -119,7 +117,7 @@ public:
     }
 };
 
-void createAccount() {
+void createAccount()     {
     double initialBudget;
     std::cout << "Enter initial budget: ";
     while (!(std::cin >> initialBudget) || initialBudget <= 0) {
@@ -382,7 +380,7 @@ int main() {
             break;
         }
     }
-    std::cout << "Thank you for using the Expense Tracker system! Goodbye!\n";
+    std::cout << "Thank you for using the Expense Tracker system made by drunk Warsaw University of Technology student! Goodbye!\n";
     FileManager::saveAllAccountsToFile("accounts.txt", accounts);
     return 0;
 }

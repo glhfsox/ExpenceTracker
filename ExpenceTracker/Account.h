@@ -22,8 +22,8 @@ public:
         balance(initialBalance),
         allExpenses(initialExpenses),
         sumOfAllExpences(initialSumOfExpenses),
-        category(Category::Other),
-        monthlyBudget(0.0) {}
+       category(Category::Other),
+       monthlyBudget(0.0) {}
 
     void addExpense();
     void deleteExpense();
